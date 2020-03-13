@@ -1,0 +1,56 @@
+#include<windows.h>                  
+#include<iostream>   
+#include<time.h>
+#include<fstream>
+#include<stdio.h>
+#include<MMSystem.h>
+#include<string>
+#pragma comment(lib,"winmm.lib")
+using namespace std;  
+
+class CharacterVideo
+{
+    public:
+	void renewfileName(char*fileName,int fileNo)
+	{
+		sprintf(fileName,"%s%d%s","wordVedio\\picture (",fileNo,").txt");
+	}
+	void gotoxy(int x,int y){   
+    COORD c;   
+    c.X = x;   
+    c.Y = y;   
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),c); } 
+	
+ };     
+     
+int main()   
+{   
+	CharacterVideo cv;
+	cv.gotoxy(0,0);   
+	char fileName[33]={"wordVedio\\picture (1).txt"};
+	string str;
+	int i=1;
+	clock_t starttime,finshtime;
+	ifstream File(fileName);
+	cin.get();
+	PlaySound("Vedio.wav",NULL,SND_FILENAME|SND_ASYNC);
+	while(i<=6570)
+	{   
+		cv.renewfileName(fileName,i);
+		i++;
+		File.open(fileName);
+		while(File.good())
+		{
+			getline(File,str);
+			cout<<str;    
+		}
+		File.close();
+		cv.gotoxy(0,0);
+		Sleep(1/100);
+	}
+
+  cout<<"Hello world!"<<endl;
+  cin.get();
+  return 0;
+}
+
